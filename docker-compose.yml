@@ -1,0 +1,22 @@
+version: '3'
+services:
+  app:
+    image: nginx:latest
+    container_name: "app"
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/html:/app
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+  node:
+    build:
+      context: ./docker/node
+      dockerfile: Dockerfile
+    image: node:1.0
+    container_name: node
+    tty: true
+    volumes:
+      - ./src:/usr/src/app
+    ports:
+      - "3000:3000"
