@@ -29,8 +29,11 @@ $ docker-compose run --rm node npm init -y
 ## ライブラリ
 TypeScriptの開発に必要な各種コマンドをインストールします。
 ```
-$ docker-compose run --rm node npm install -D typescript @types/node
-$ docker-compose run --rm node npm install -D ts-node ts-node-dev rimraf npm-run-all
+# node-js
+$ docker-compose run --rm node npm install -D typescript @types/node ts-node ts-node-dev rimraf npm-run-all
+
+# webpack
+$ docker-compose run --rm node npm install -D webpack webpack-cli typescript ts-loader rimraf npm-run-all
 ```
 ※ `src/package-lock.json` と `src/node_modules` が作成されます
 
@@ -98,3 +101,4 @@ $ docker-compose exec node npm run clean
 * [TypeScript - JavaScript that scales.](https://www.typescriptlang.org/)
 * [入門 TypeScriptとは？](https://www.sejuku.net/blog/93230)
 * [TypeScript + Node.js プロジェクトのはじめかた2019](https://qiita.com/notakaos/items/3bbd2293e2ff286d9f49)
+* [「がんばらないTypeScript」で、JavaScriptを“柔らかい”静的型付き言語に](https://employment.en-japan.com/engineerhub/entry/2019/04/16/103000)
