@@ -1,20 +1,30 @@
-version: '3'
 services:
   app:
-    image: nginx:latest
-    container_name: "app"
+    image: 'nginx:latest'
     ports:
-      - "8080:80"
+      - '80:80'
     volumes:
       - ./src/html:/app
+      - dist:/app/js/dist/
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
 
   node:
-    image: node:10
-    container_name: node
+    image: 'learning/typescript:local'
+    build:
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
     tty: true
     working_dir: /usr/src/app
     volumes:
       - ./src:/usr/src/app
+      - dist:/usr/src/app/html/js/dist/
+      - node_modules:/usr/src/app/node_modules/
     ports:
-      - "3000:3000"
+      - '3000:3000'
+
+volumes:
+  node_modules:
+    driver: local
+
+  dist:
+    driver: local
