@@ -1,6 +1,6 @@
 # Make Node.js Web Application Docker
 # https://nodejs.org/ja/docs/guides/nodejs-docker-webapp/
-FROM node:10
+FROM node:12
 
 #RUN echo "deb http://archive.debian.org/debian/ stretch main" > /etc/apt/sources.list \
 #    && echo "deb http://archive.debian.org/debian-security stretch/updates main" >> /etc/apt/sources.list \
