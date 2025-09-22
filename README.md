@@ -28,18 +28,29 @@ TypeScriptのバージョン3.9.10の学習用に作ります。
   ┗ tsconfig.json
 ```
 
+## 準備
+必要となるコードをリポジトリからclonseして配置します。
+```bash
+$ mkdir -p ~/workspace/typescript3.9.10/ && cd ~/workspace/typescript3.9.10
+$ git clone https://github.com/reflet/typescript3.9.10.git .
+```
+
+## docker構築
+dockerイメージを作成し、バージョン確認してみる。
+
+```bash
+# dockerイメージ作成
+$ docker compose build
+
+$ docker compose run --rm node npx tsc --version
+Version 3.9.10
+```
+
 ## サーバ起動
+dockerコンテナを起動します。
 
 ```bash
 $ docker compose up -d
-```
-
-## バージョン確認
-バージョン確認してみる。
-
-```bash
-$ docker compose exec node npx tsc --version
-Version 3.9.10
 ```
 
 ## 動作確認
