@@ -1,5 +1,14 @@
-# typescript （Version 3.9.10）
-TypeScriptを触ってみる。
+# typescript 3.9.10
+TypeScriptのバージョン3.9.10の学習用に作ります。
+
+## 前提条件
+- MacOS / Windows環境
+- Gitコマンド
+- Docker for Desktop
+
+## ミドルウェア
+- Node 12.x.x
+- Typescript 3.9.10
 
 ## ファイル構成
 ```
@@ -20,25 +29,29 @@ TypeScriptを触ってみる。
 ```
 
 ## サーバ起動
-```
+
+```bash
 $ docker compose up -d
 ```
 
 ## バージョン確認
 バージョン確認してみる。
-```
+
+```bash
 $ docker compose exec node npx tsc --version
-Version 3.8.3
+Version 3.9.10
 ```
 
 ## 動作確認
 index.jsを読み込んでいるindex.htmlをブラウザで閲覧してみる。
-```
+```bash
 $ open http://localhost
 ```
 
-## コンパイル
-```
+## トランスコンパイル
+TypescriptのコードをJavascriptのコードに変換する。
+
+```bash
 $ docker compose exec node npx tsc
   or
 $ docker compose exec node npm run build
@@ -46,21 +59,24 @@ $ docker compose exec node npm run build
 
 ## コマンド実行
 `node` コマンドで実行してみる。
-```
+
+```bash
 $ docker compose exec node node html/js/dist/app.js
   or
 $ docker compose exec node npm run start
 ```
 
 `ts-node` コマンドで実行してみる。
-```
+
+```bash
 $ docker compose exec node npx ts-node html/js/ts/app.ts
   or
 $ docker compose exec node npm run dev
 ```
 
 `ts-node-dev` コマンドで実行してみる。
-```
+
+```bash
 $ docker compose exec node npx ts-node-dev --respawn html/js/ts/app.ts
   or
 $ docker compose exec node npm run dev:watch
@@ -68,7 +84,7 @@ $ docker compose exec node npm run dev:watch
 
 ## 生成されたファイルの削除
 
-```
+```bash
 $ docker compose exec node npm run clean
 ```
 
@@ -85,6 +101,41 @@ docker cp $(docker compose ps -q node):/usr/src/app/node_modules ./src/
 ```bash
 docker cp $(docker compose ps -q node):/usr/src/app/html/js/dist ./src/html/js/
 ```
+
+## プロジェクト作成
+新規にプロジェクトを作成する場合は、下記コマンドで、各設定ファイルを作成ください。
+
+＜各設定ファイル＞
+```
+┗ src
+  ┣ package.json
+  ┣ package-lock.json
+  ┗ tsconfig.json
+```
+下記コマンドを実行することで、上記３つのファイルが作成されます。
+
+### ① 初期化(npm)
+`src/package.json` を作成します
+
+```bash
+$ docker compose run --rm node npm init -y
+```
+
+### ② ライブラリをインストールする
+`src/package-lock.json` と `src/node_modules` が作成されます。
+
+```bash
+$ docker compose run --rm node npm install -D typescript@3.9.10 @types/node ts-node ts-node-dev rimraf npm-run-all
+```
+
+### ③ 初期化 (TypeScript)
+TypeScriptの `src/tsconfig.json` ファイルを作成します。
+
+```bash
+$ docker compose run --rm node npx tsc --init
+```
+
+以上
 
 ## 参考サイト
 * [TypeScript - JavaScript that scales.](https://www.typescriptlang.org/)
