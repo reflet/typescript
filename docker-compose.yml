@@ -4,21 +4,20 @@ services:
     ports:
       - '80:80'
     volumes:
-      - ./src/html:/app
-      - dist:/app/js/dist/
+      - ./src/public:/app
+      - dist:/app/dist/
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
 
   node:
-    image: 'learning/typescript:local'
+    image: 'learning/typescript3.9.10:local'
     build:
       context: ./
       dockerfile: ./docker/node/Dockerfile
     tty: true
-    working_dir: /usr/src/app
     volumes:
-      - ./src:/usr/src/app
-      - dist:/usr/src/app/html/js/dist/
-      - node_modules:/usr/src/app/node_modules/
+      - ./src:/usr/src
+      - dist:/usr/src/public/dist/
+      - node_modules:/usr/src/node_modules/
     ports:
       - '3000:3000'
 

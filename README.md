@@ -13,15 +13,15 @@ TypeScriptのバージョン3.9.10の学習用に作ります。
 ## ファイル構成
 ```
 ┗ src
-  ┣ html
+  ┣ node_modules          ← npm installでインストールされるライブラリ
+  ┣ public
   ┃  ┣ js
-  ┃  ┃  ┣ dist          ← コンパイルされたファイル
-  ┃  ┃  ┃  ┣ app.js
-  ┃  ┃  ┃  ┗ greeter.js
-  ┃  ┃  ┗ ts            ← コンパイル対象ファイル
-  ┃  ┃     ┣ app.ts 
-  ┃  ┃     ┗ greeter.ts 
-  ┃  ┗ index.html       ← greeter.jsを読み込んでいるページ
+  ┃  ┃  ┗ dist          ← トランスパイルされたファイル
+  ┃  ┃      ┗ greeter.js
+  ┃  ┗ index.html        ← ./js/dist/***.jsを読み込んでいるページ
+  ┃
+  ┣ src                   ← Typescriptのコード
+  ┃  ┗ greeter.ts
   ┃
   ┣ package.json
   ┣ package-lock.json
@@ -72,7 +72,7 @@ $ docker compose exec node npm run build
 `node` コマンドで実行してみる。
 
 ```bash
-$ docker compose exec node node html/js/dist/app.js
+$ docker compose exec node node public/dist/app.js
   or
 $ docker compose exec node npm run start
 ```
@@ -80,7 +80,7 @@ $ docker compose exec node npm run start
 `ts-node` コマンドで実行してみる。
 
 ```bash
-$ docker compose exec node npx ts-node html/js/ts/app.ts
+$ docker compose exec node npx ts-node src/app.ts
   or
 $ docker compose exec node npm run dev
 ```
@@ -88,7 +88,7 @@ $ docker compose exec node npm run dev
 `ts-node-dev` コマンドで実行してみる。
 
 ```bash
-$ docker compose exec node npx ts-node-dev --respawn html/js/ts/app.ts
+$ docker compose exec node npx ts-node-dev --respawn src/app.ts
   or
 $ docker compose exec node npm run dev:watch
 ```
@@ -105,12 +105,12 @@ IEDなどの関係上でdockerコンテナからローカルにコピーした�
 
 - **node_modules**
 ```bash
-docker cp $(docker compose ps -q node):/usr/src/app/node_modules ./src/
+$ docker cp $(docker compose ps -q node):/usr/src/node_modules ./src/
 ```
 
 - **dist**
 ```bash
-docker cp $(docker compose ps -q node):/usr/src/app/html/js/dist ./src/html/js/
+$ docker cp $(docker compose ps -q node):/usr/src/public/dist ./src/public/
 ```
 
 ## プロジェクト作成
@@ -145,8 +145,6 @@ TypeScriptの `src/tsconfig.json` ファイルを作成します。
 ```bash
 $ docker compose run --rm node npx tsc --init
 ```
-
-以上
 
 ## 参考サイト
 * [TypeScript - JavaScript that scales.](https://www.typescriptlang.org/)

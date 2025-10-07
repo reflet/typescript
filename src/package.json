@@ -1,12 +1,12 @@
 {
   "name": "app",
   "version": "0.1.0",
-  "main": "html/js/dist/app.js",
+  "main": "public/dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node html/js/ts/app.ts",
-    "dev:watch": "ts-node-dev --respawn html/js/ts/app.ts",
-    "clean": "rimraf html/js/dist/*",
+    "dev": "ts-node src/app.ts",
+    "dev:watch": "ts-node-dev --respawn src/app.ts",
+    "clean": "rimraf public/dist/*",
     "tsc": "tsc",
     "build": "npm-run-all clean tsc",
     "start": "node ."

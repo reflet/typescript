@@ -3,10 +3,10 @@
 FROM node:12
 
 # Create an application directory.
-WORKDIR /usr/src/app
+WORKDIR /usr/src
 
 # Bundle application sources.
-COPY ./src/ /usr/src/app
+COPY ./src/ /usr/src
 RUN rm -rf node_modules dist
 
 # Node.js オプション設定 (memory up)
